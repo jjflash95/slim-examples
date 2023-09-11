@@ -2,67 +2,67 @@ struct Socket { host, port }
 struct Server { socket, views }
 
 fn main() {
-	server = new Server {
-		socket: new Socket { host: '127.0.0.1', port: 8080 },
-		views: {}
-	}
+    server = new Server {
+        socket: new Socket { host: '127.0.0.1', port: 8080 },
+        views: {}
+    }
 
-	server
-		.add_view('/not_found', "<h1>Not Found<h1>")
-		.add_view('/greet', "<h1>Hiiii<h1>")
-		.add_view('/bye', "<h1>Byeeee<h1>")
+    server
+        .add_view('/not_found', "<h1>Not Found<h1>")
+        .add_view('/greet', "<h1>Hiiii<h1>")
+        .add_view('/bye', "<h1>Byeeee<h1>")
 
-	loop {
-		server.serve()
-	}
+    loop {
+        server.serve()
+    }
 }
 
 impl str {
-	fn get_endpoint() {
-		head = ''
-		for char in self {
-			if char == '\n' {
-				break
-			}
-			head = concat(head, char)
-		}
+    fn get_endpoint() {
+        head = ''
+        for char in self {
+            if char == '\n' {
+                break
+            }
+            head = concat(head, char)
+        }
 
-		return [head, split(head, ' ')[1]]
-	}
-	fn into_response() {
-		return concat(
-			"HTTP/1.1 200 OK\nContent-Type: text/html\n",
+        return [head, split(head, ' ')[1]]
+    }
+    fn into_response() {
+        return concat(
+            "HTTP/1.1 200 OK\nContent-Type: text/html\n",
             "Content-Length: ",
-			len(self),
-			"\n\n",
-			self
-		)
-	}
+            len(self),
+            "\n\n",
+            self
+        )
+    }
 }
 
 trait Socket {
-	fn listen() {
-		return listen(self.host, self.port)
-	}
+    fn listen() {
+        return listen(self.host, self.port)
+    }
 }
 
 trait Server {
-	fn add_view(endpoint, html) {
-		self.views[endpoint] = html
-		return self
-	}
-	fn view(endpoint) {
-		return (self.views[endpoint] || self.views['/not_found']).into_response()
-	}
+    fn add_view(endpoint, html) {
+        self.views[endpoint] = html
+        return self
+    }
+    fn view(endpoint) {
+        return (self.views[endpoint] || self.views['/not_found']).into_response()
+    }
 
-	fn serve() {
-		conn = self.socket.listen()
-		request = conn.read()
-		request = request.get_endpoint()
-		endpoint = request[1]
-		print(request[0])
-		conn.write(self.view(endpoint))
-	}
+    fn serve() {
+        conn = self.socket.listen()
+        request = conn.read()
+        request = request.get_endpoint()
+        endpoint = request[1]
+        print(request[0])
+        conn.write(self.view(endpoint))
+    }
 }
 
 impl Socket for Socket

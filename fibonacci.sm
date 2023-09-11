@@ -11,13 +11,13 @@ trait Array {
 impl Array for sequence
 
 fib = fn(n) {
-	return if n == 0 {
+    return if n == 0 {
         0
     } else if [1, 2].contains(n) {
-		1
-	} else {
-		fib(n - 2) + fib(n - 1)
-	}
+        1
+    } else {
+        fib(n - 2) + fib(n - 1)
+    }
 }
 
 print(fib(10))

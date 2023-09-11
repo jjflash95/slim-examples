@@ -1,47 +1,47 @@
 
 impl int {
-	fn to_gender() {
-		return if self == 0 { "female" } else { "male" }
-	}
+    fn to_gender() {
+        return if self == 0 { "female" } else { "male" }
+    }
 }
 
 impl sequence {
-	fn foreach(fn) {
-		for item in self {
-			(*item) = fn(item)
-		}
-		return self
-	}
+    fn foreach(fn) {
+        for item in self {
+            (*item) = fn(item)
+        }
+        return self
+    }
 
-	fn map(fn) {
-		out = []
-		for item in self {
-			out[] = fn(item)
-		}
-		return out
-	}
+    fn map(fn) {
+        out = []
+        for item in self {
+            out[] = fn(item)
+        }
+        return out
+    }
 
-	fn enumerate() {
-		out = []
-		index = 0
-		for item in self {
-			out[] = [index, item]
-			index ++
-		}
-		return out
-	}
+    fn enumerate() {
+        out = []
+        index = 0
+        for item in self {
+            out[] = [index, item]
+            index ++
+        }
+        return out
+    }
 }
 
 impl Human {
-	fn say_hi() {
-		print("Hi, I am ", self.name, " and I am a ", self.gender.to_gender())
-	}
+    fn say_hi() {
+        print("Hi, I am ", self.name, " and I am a ", self.gender.to_gender())
+    }
 }
 
 trait Worker {
-	fn work() {
-		print(self.name, " is working")
-	}
+    fn work() {
+        print(self.name, " is working")
+    }
 }
 
 impl Worker for Human
@@ -57,7 +57,7 @@ plus_one = fn(i) { return i + 1 }
 
 seq = [1,2,3,4,5]
 seq = seq
-	.foreach(double)
-	.map(plus_one)
+    .foreach(double)
+    .map(plus_one)
 
 print(seq.enumerate())
